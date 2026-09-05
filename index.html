@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>掌玩人才发展项目 · 和优秀的人，把不可能变成可能</title>
+<meta name="description" content="掌玩人才发展项目：面向应届生、在校实习生与在职员工的一体化人才发展体系。未来领袖计划、青云计划、活水计划三大计划 + 双通道路径 + 四项培养机制。">
+<meta name="theme-color" content="#f5f6fb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234B48F5'/%3E%3Cpath d='M10 22V10h5a3.5 3.5 0 0 1 0 7h-5' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- 无 JS 兜底：滚动入场元素直接可见（不依赖脚本即可完整阅读） -->
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+<!-- 主题预置脚本：必须位于样式之前，防止刷新闪白 -->
+<script>
+(function(){
+  try{
+    var k='zw-theme', s=localStorage.getItem(k);
+    var t=(s==='light'||s==='dark')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    document.documentElement.setAttribute('data-theme',t);
+  }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+})();
+</script>
+<style id="site-css">
+/* ==========================================================================
+   DESIGN TOKENS
+   品牌主色  H=241 靛蓝 #4B48F5
+   邻近亮色  H=190 青   #12A5D4  （同属冷色蓝青区，色相偏移 51°，明度/饱和提升）
+   规则：组件内禁止硬编码颜色，一律引用令牌。
+   ========================================================================== */
+:root{
+  color-scheme: light;
+
+  /* —— 品牌与强调 —— */
+  --brand:        #4B48F5;
+  --brand-ink:    #3A37D6;
+  --brand-soft:   rgba(75,72,245,.10);
+  --brand-line:   rgba(75,72,245,.26);
+  --accent:       #12A5D4;
+  --accent-ink:   #0A7392;
+  --accent-soft:  rgba(18,165,212,.12);
+  --grad-brand:   linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
+  --grad-soft:    linear-gradient(135deg, var(--brand-soft) 0%, var(--accent-soft) 100%);
+
+  /* —— 表面 / 文字 / 描边 —— */
+  --bg:           #F5F6FB;
+  --bg-2:         #EDF0F9;
+  --surface:      rgba(255,255,255,.66);
+  --surface-2:    rgba(255,255,255,.92);
+  --text:         #14162B;
+  --text-2:       #4A4E69;
+  --text-3:       #646A85;
+  --border:       rgba(20,22,43,.10);
+  --border-2:     rgba(20,22,43,.17);
+  --inset:        rgba(255,255,255,.85);
+  --shadow:       rgba(20,22,43,.07);
+  --shadow-lg:    rgba(20,22,43,.14);
+  --grid:         rgba(20,22,43,.10);
+  --on-brand:     #FFFFFF;
+  --glass-blur:   14px;
+
+  /* —— 尺度 —— */
+  --radius:       18px;
+  --radius-sm:    12px;
+  --radius-lg:    28px;
+  --pad-card:     24px;
+  --gap-section:  96px;
+  --maxw:         1180px;
+  --dur:          .4s;
+  --ease:         cubic-bezier(.22,.61,.36,1);
+
+  /* —— 字体栈：中文 + 等宽（数字/年份/标签一律等宽） —— */
+  --font-cn: "PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",system-ui,sans-serif;
+  --font-mono: "SF Mono","JetBrains Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,"Courier New",monospace;
+}
+
+/* 暗色：只覆盖令牌，不改任何组件规则 */
+html[data-theme="dark"]{
+  color-scheme: dark;
+  --brand:        #8B87FF;
+  --brand-ink:    #A9A6FF;
+  --brand-soft:   rgba(139,135,255,.16);
+  --brand-line:   rgba(139,135,255,.38);
+  --accent:       #4FE0F5;
+  --accent-ink:   #7FEBFA;
+  --accent-soft:  rgba(79,224,245,.14);
+  --bg:           #090B14;
+  --bg-2:         #0E1120;
+  --surface:      rgba(255,255,255,.045);
+  --surface-2:    rgba(255,255,255,.075);
+  --text:         #ECEEFB;
+  --text-2:       #A8AEC9;
+  --text-3:       #7E859F;
+  --border:       rgba(236,238,251,.12);
+  --border-2:     rgba(236,238,251,.22);
+  --inset:        rgba(255,255,255,.10);
+  --shadow:       rgba(0,0,0,.40);
+  --shadow-lg:    rgba(0,0,0,.55);
+  --grid:         rgba(236,238,251,.16);
+  --on-brand:     #0A0C16;
+}
+
+/* 主题切换 400ms 全站颜色过渡 */
+html.theme-anim,html.theme-anim *{
+  transition: background-color var(--dur) var(--ease),
+              color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              fill var(--dur) var(--ease),
+              stroke var(--dur) var(--ease);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+/* 锚点跳转时为吸顶导航留出空间 */
+section[id]{ scroll-margin-top:86px; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-cn);
+  font-size:16px;
+  line-height:1.7;
+  letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,p,dl,dd,dt,figure,blockquote{ margin:0; }
+ul,ol{ margin:0; padding:0; list-style:none; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+table{ border-collapse:collapse; width:100%; }
+:focus-visible{ outline:2px solid var(--brand); outline-offset:3px; border-radius:6px; }
+.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+#bg-canvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+.wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+.ico{ width:18px; height:18px; flex:none; stroke-width:1.75; }
+
+/* ==========================================================================
+   HEADER / NAV
+   ========================================================================== */
+.site-header{
+  position:sticky; top:0; z-index:60;
+  background:var(--surface);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(180%);
+  border-bottom:1px solid var(--border);
+  box-shadow:inset 0 1px 0 var(--inset);
+}
+.hd-in{ display:flex; align-items:center; gap:16px; height:66px; }
+.brand{ display:flex; align-items:center; gap:10px; flex:none; min-height:38px; }
+.brand-mark{
+  width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+  background:var(--grad-brand); color:var(--on-brand);
+  box-shadow:0 4px 14px var(--shadow);
+}
+.brand-mark .ico{ width:20px; height:20px; stroke-width:2; }
+.brand-txt{ display:flex; flex-direction:column; line-height:1.15; }
+.brand-txt b{ font-size:15px; font-weight:700; letter-spacing:.02em; }
+.brand-txt span{ font-size:11px; color:var(--text-3); font-family:var(--font-mono); }
+
+.nav{ margin-left:auto; display:flex; align-items:center; gap:2px; }
+.nav-link{
+  position:relative; display:inline-flex; align-items:center;
+  padding:8px 12px; border-radius:10px;
+  font-size:14px; color:var(--text-2); white-space:nowrap;
+  transition:color .22s var(--ease), background-color .22s var(--ease), transform .22s var(--ease);
+}
+.nav-link:hover{ color:var(--text); background:var(--brand-soft); transform:translateY(-1px); }
+.nav-link:active{ transform:translateY(0) scale(.97); }
+.nav-link.is-active{ color:var(--brand-ink); font-weight:600; }
+.nav-link.is-active::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:2px; height:2px;
+  border-radius:2px; background:var(--grad-brand);
+}
+.hd-actions{ display:flex; align-items:center; gap:8px; flex:none; }
+.icon-btn{
+  width:38px; height:38px; border-radius:11px; display:grid; place-items:center;
+  border:1px solid var(--border); background:var(--surface); color:var(--text-2);
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease), color .22s var(--ease);
+}
+.icon-btn:hover{ transform:translateY(-2px); color:var(--text); border-color:var(--brand-line); box-shadow:0 6px 18px var(--shadow); }
+.icon-btn:active{ transform:translateY(0) scale(.94); }
+.icon-btn .ico{ width:19px; height:19px; }
+.nav-toggle{ display:none; }
+html[data-theme="dark"] .i-sun{ display:none; }
+html[data-theme="light"] .i-moon{ display:none; }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  min-height:46px; padding:0 22px; border-radius:13px;
+  font-size:15px; font-weight:600; letter-spacing:.02em;
+  border:1px solid transparent;
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), background-color .22s var(--ease), border-color .22s var(--ease), color .22s var(--ease);
+}
+.btn .ico{ width:17px; height:17px; }
+.btn-primary{ background:var(--grad-brand); color:var(--on-brand); box-shadow:0 8px 24px var(--shadow-lg); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 32px var(--shadow-lg); }
+.btn-primary:active{ transform:translateY(0) scale(.975); }
+.btn-ghost{ background:var(--surface); border-color:var(--border-2); color:var(--text); }
+.btn-ghost:hover{ transform:translateY(-2px); border-color:var(--brand-line); background:var(--brand-soft); box-shadow:0 10px 26px var(--shadow); }
+.btn-ghost:active{ transform:translateY(0) scale(.975); }
+
+.more{
+  display:inline-flex; align-items:center; gap:8px;
+  min-height:38px; padding:6px 2px; border-radius:8px;
+  font-size:15px; font-weight:600; color:var(--brand-ink);
+  transition:gap .22s var(--ease), transform .22s var(--ease), color .22s var(--ease);
+}
+.more .ico{ width:17px; height:17px; }
+.more:hover{ gap:13px; color:var(--text); }
+.more:active{ transform:scale(.97); }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero{ position:relative; padding:104px 0 72px; overflow:hidden; }
+.hero::before{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  top:-220px; left:50%; width:900px; height:900px; transform:translateX(-50%);
+  background:var(--grad-soft); filter:blur(90px); opacity:.9;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--text-3); font-family:var(--font-mono);
+}
+.hero-title{
+  margin-top:18px;
+  font-size:clamp(34px,5.4vw,60px); line-height:1.18; font-weight:800; letter-spacing:-.01em;
+  background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-lead{ margin-top:20px; max-width:620px; font-size:18px; line-height:1.75; color:var(--text-2); }
+.hero-idea{
+  margin-top:20px; display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap;
+  padding:9px 16px; border-radius:999px;
+  border:1px solid var(--border); background:var(--surface);
+  font-size:14px; color:var(--text-2);
+}
+.hero-idea .mono{ font-size:11.5px; letter-spacing:.12em; color:var(--brand-ink); }
+.hero-cta{ margin-top:34px; display:flex; flex-wrap:wrap; gap:14px; }
+
+.stats{
+  margin-top:56px; display:grid; gap:14px;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.stat{
+  padding:var(--pad-card); border-radius:var(--radius);
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  transition:transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
+}
+.stat:hover{ transform:translateY(-4px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 16px 34px var(--shadow); }
+.stat-num{
+  display:block; font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  font-size:clamp(26px,3.2vw,36px); font-weight:700; line-height:1.1;
+  background:var(--grad-brand); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.stat-label{ display:block; margin-top:8px; font-size:13.5px; color:var(--text-2); }
+.stat-note{ display:block; margin-top:2px; font-size:12px; color:var(--text-3); font-family:var(--font-mono); }
+
+/* ==========================================================================
+   SECTION
+   ========================================================================== */
+.section{ position:relative; padding:var(--gap-section) 0; }
+.section.alt{ background:var(--bg-2); }
+.sec-head{ max-width:760px; margin-bottom:44px; }
+.sec-title{ margin-top:14px; font-size:clamp(26px,3.4vw,38px); line-height:1.28; font-weight:750; letter-spacing:-.01em; }
+.sec-lead{ margin-top:16px; font-size:16.5px; line-height:1.75; color:var(--text-2); }
+.sec-foot{ margin-top:34px; }
+
+/* ==========================================================================
+   CARDS / GRID
+   ========================================================================== */
+.grid{ display:grid; gap:18px; }
+.g-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+.g-2{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.g-4{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+
+.card{
+  position:relative; padding:var(--pad-card); border-radius:var(--radius);
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.card:hover{ transform:translateY(-5px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 18px 38px var(--shadow); }
+.card:active{ transform:translateY(-1px) scale(.995); }
+.card-ico{
+  width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+  background:var(--grad-soft); color:var(--brand-ink); border:1px solid var(--brand-line);
+}
+.card-ico .ico{ width:22px; height:22px; stroke-width:1.75; }
+.card h3{ margin-top:16px; font-size:19px; font-weight:700; letter-spacing:.01em; }
+.card .kicker{ margin-top:6px; font-size:13px; color:var(--text-3); font-family:var(--font-mono); }
+.card p{ margin-top:12px; font-size:14.5px; line-height:1.72; color:var(--text-2); }
+
+.spec{ margin-top:16px; padding-top:14px; border-top:1px dashed var(--border-2); display:grid; gap:9px; }
+.spec-row{ display:flex; gap:10px; font-size:14px; line-height:1.6; }
+.spec-row .ico{ width:16px; height:16px; margin-top:5px; color:var(--brand-ink); }
+.spec-row span{ color:var(--text-2); }
+.spec-row .k{ flex:none; font-family:var(--font-mono); font-size:12px; color:var(--text-3); padding-top:2px; min-width:52px; }
+
+/* ==========================================================================
+   CHIPS / TAGS
+   ========================================================================== */
+.chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.chip{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:7px 14px; border-radius:999px;
+  border:1px solid var(--border); background:var(--surface);
+  font-size:13.5px; color:var(--text-2);
+  transition:transform .22s var(--ease), border-color .22s var(--ease), color .22s var(--ease), box-shadow .22s var(--ease);
+}
+.chip:hover{ transform:translateY(-2px); border-color:var(--brand-line); color:var(--text); box-shadow:0 8px 18px var(--shadow); }
+.chip:active{ transform:translateY(0) scale(.97); }
+.chip .ico{ width:15px; height:15px; color:var(--brand-ink); }
+.chip.mono{ font-family:var(--font-mono); font-size:12.5px; }
+
+/* ==========================================================================
+   ROWS (实践平台 / 列表)
+   ========================================================================== */
+.rows{ display:grid; gap:12px; margin-top:30px; }
+.row{
+  display:grid; grid-template-columns:1.1fr .8fr 1fr 2fr; gap:16px; align-items:center;
+  padding:18px var(--pad-card); border-radius:var(--radius-sm);
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset);
+  transition:transform .26s var(--ease), border-color .26s var(--ease), box-shadow .26s var(--ease);
+}
+.row:hover{ transform:translateX(5px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 10px 26px var(--shadow); }
+.row:active{ transform:translateX(1px) scale(.995); }
+.row-name{ font-size:16px; font-weight:700; display:flex; align-items:center; gap:9px; }
+.row-name .ico{ width:17px; height:17px; color:var(--brand-ink); }
+.row-cell{ font-size:13.5px; color:var(--text-2); font-family:var(--font-mono); }
+.row-tags{ font-size:12.5px; color:var(--text-3); font-family:var(--font-mono); line-height:1.7; }
+
+/* ==========================================================================
+   QUOTES
+   ========================================================================== */
+.quotes{ display:grid; gap:18px; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:30px; }
+.quote{
+  position:relative; padding:28px; border-radius:var(--radius); overflow:hidden;
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.quote:hover{ transform:translateY(-5px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 18px 38px var(--shadow); }
+.quote::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--grad-brand);
+}
+.quote-mark{ color:var(--brand-line); }
+.quote-mark .ico{ width:26px; height:26px; }
+.quote blockquote{ margin-top:12px; font-size:16px; line-height:1.78; color:var(--text); }
+.quote figcaption{ margin-top:16px; font-size:13.5px; color:var(--text-3); }
+.quote figcaption b{ display:block; font-size:15px; color:var(--text); font-weight:700; }
+.quote-note{ margin-top:10px; font-size:13px; color:var(--text-3); line-height:1.7; }
+
+/* ==========================================================================
+   STEPS / TIMELINE
+   ========================================================================== */
+.steps{ display:grid; gap:16px; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:32px; counter-reset:s; }
+.step{
+  position:relative; padding:var(--pad-card); border-radius:var(--radius);
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  transition:transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
+}
+.step:hover{ transform:translateY(-4px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 16px 34px var(--shadow); }
+.step-n{ font-family:var(--font-mono); font-size:13px; font-weight:700; color:var(--brand-ink); }
+.step h4{ margin-top:10px; font-size:16px; font-weight:700; }
+.step p{ margin-top:8px; font-size:13.5px; line-height:1.7; color:var(--text-2); }
+
+.timeline{ margin-top:34px; display:grid; gap:0; border-left:2px solid var(--border-2); padding-left:26px; }
+.tl-item{ position:relative; padding:0 0 30px; }
+.tl-item:last-child{ padding-bottom:0; }
+.tl-item::before{
+  content:""; position:absolute; left:-33px; top:8px; width:12px; height:12px; border-radius:50%;
+  background:var(--grad-brand); box-shadow:0 0 0 4px var(--bg), 0 0 0 5px var(--brand-line);
+}
+.tl-year{ font-family:var(--font-mono); font-size:20px; font-weight:700; color:var(--brand-ink); }
+.tl-txt{ margin-top:5px; font-size:15px; line-height:1.7; color:var(--text-2); }
+
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+.table-wrap{
+  margin-top:28px; border-radius:var(--radius); overflow:hidden;
+  border:1px solid var(--border); background:var(--surface);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  overflow-x:auto;
+}
+table{ min-width:640px; }
+caption{ text-align:left; padding:18px var(--pad-card) 0; font-size:13px; color:var(--text-3); font-family:var(--font-mono); }
+th,td{ padding:14px 18px; text-align:left; font-size:14px; line-height:1.65; border-bottom:1px solid var(--border); }
+thead th{ font-size:12.5px; letter-spacing:.08em; color:var(--text-3); font-family:var(--font-mono); background:var(--surface-2); }
+tbody tr:last-child td{ border-bottom:0; }
+tbody tr{ transition:background-color .2s var(--ease); }
+tbody tr:hover{ background:var(--brand-soft); }
+td.mono,th.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums; }
+td b{ color:var(--text); font-weight:700; }
+
+/* ==========================================================================
+   DETAIL PAGE HERO / TOC / PAGER
+   ========================================================================== */
+.page-hero{ padding:76px 0 46px; }
+.page-hero h1{ margin-top:16px; font-size:clamp(28px,4.2vw,46px); line-height:1.22; font-weight:800; letter-spacing:-.01em; }
+.page-hero .sec-lead{ font-size:17px; }
+.crumb{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--text-3); font-family:var(--font-mono); min-height:38px; }
+.crumb:hover{ color:var(--brand-ink); }
+.crumb .ico{ width:15px; height:15px; }
+
+.toc{
+  margin-top:34px; display:flex; flex-wrap:wrap; gap:8px;
+  padding:14px; border-radius:var(--radius-sm);
+  border:1px solid var(--border); background:var(--surface);
+}
+.toc b{ font-size:12.5px; color:var(--text-3); font-family:var(--font-mono); padding:6px 8px; align-self:center; }
+.toc a{
+  display:inline-flex; align-items:center; min-height:38px; padding:6px 14px; border-radius:9px;
+  font-size:13.5px; color:var(--text-2);
+  transition:background-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+}
+.toc a:hover{ background:var(--brand-soft); color:var(--text); transform:translateY(-1px); }
+.toc a:active{ transform:translateY(0) scale(.97); }
+.toc a.is-active{ background:var(--brand-soft); color:var(--brand-ink); font-weight:600; }
+
+.pager{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:26px; }
+.pager a{
+  display:flex; flex-direction:column; gap:4px; padding:20px var(--pad-card); border-radius:var(--radius);
+  background:var(--surface); border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+  box-shadow:inset 0 1px 0 var(--inset), 0 6px 22px var(--shadow);
+  transition:transform .26s var(--ease), border-color .26s var(--ease), box-shadow .26s var(--ease);
+}
+.pager a:hover{ transform:translateY(-4px); border-color:var(--brand-line); box-shadow:inset 0 1px 0 var(--inset), 0 16px 34px var(--shadow); }
+.pager a:active{ transform:translateY(0) scale(.99); }
+.pager .p-k{ font-size:12px; font-family:var(--font-mono); color:var(--text-3); display:flex; align-items:center; gap:6px; }
+.pager .p-t{ font-size:16px; font-weight:700; }
+.pager .p-next{ align-items:flex-end; text-align:right; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.site-footer{
+  margin-top:40px; padding:64px 0 34px;
+  background:var(--bg-2); border-top:1px solid var(--border);
+}
+.ft-grid{ display:grid; gap:34px; grid-template-columns:1.6fr 1fr 1fr 1fr; }
+.ft-col h4{ font-size:12.5px; letter-spacing:.14em; color:var(--text-3); font-family:var(--font-mono); margin-bottom:14px; }
+.ft-col li+li{ margin-top:2px; }
+.ft-col a{
+  display:inline-flex; align-items:center; min-height:38px; padding:2px 0;
+  font-size:14px; color:var(--text-2);
+  transition:color .2s var(--ease), transform .2s var(--ease);
+}
+.ft-col a:hover{ color:var(--brand-ink); transform:translateX(3px); }
+.ft-col a:active{ transform:translateX(0) scale(.98); }
+.ft-brand .ft-slogan{ margin-top:12px; font-size:15px; font-weight:700; }
+.ft-brand .ft-desc{ margin-top:8px; font-size:13.5px; line-height:1.75; color:var(--text-2); }
+.ft-bottom{
+  margin-top:44px; padding-top:22px; border-top:1px solid var(--border);
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between;
+  font-size:12.5px; color:var(--text-3); line-height:1.75;
+}
+.ft-bottom p{ max-width:760px; }
+
+/* ==========================================================================
+   REVEAL
+   ========================================================================== */
+.reveal{ opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:calc(var(--i,0) * 70ms); }
+.reveal.is-in{ opacity:1; transform:none; }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width:1100px){
+  .stats{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .row{ grid-template-columns:1.2fr 1fr; }
+  .row-tags{ grid-column:1 / -1; }
+  .ft-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:860px){
+  :root{ --gap-section:64px; --pad-card:20px; }
+  .hd-in{ height:60px; }
+  .nav-toggle{ display:grid; margin-left:auto; }
+  .nav{
+    position:fixed; inset:60px 0 auto 0; margin:0;
+    flex-direction:column; align-items:stretch; gap:4px;
+    padding:16px 20px 26px;
+    background:var(--surface-2);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 18px 40px var(--shadow-lg);
+    transform:translateY(-12px); opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .26s var(--ease), transform .26s var(--ease), visibility .26s;
+    max-height:calc(100vh - 60px); overflow-y:auto;
+  }
+  .nav.is-open{ transform:none; opacity:1; visibility:visible; pointer-events:auto; }
+  .nav-link{ padding:12px 14px; min-height:44px; font-size:15.5px; border-radius:11px; }
+  .nav-link.is-active::after{ display:none; }
+  .hd-actions{ order:3; }
+  .g-3,.g-4,.g-2,.quotes,.steps{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:560px){
+  :root{ --gap-section:52px; --radius:15px; }
+  .wrap{ padding:0 18px; }
+  .hero{ padding:64px 0 52px; }
+  .hero-lead{ font-size:16.5px; }
+  .g-3,.g-4,.g-2,.quotes,.steps,.stats,.pager,.ft-grid{ grid-template-columns:minmax(0,1fr); }
+  .row{ grid-template-columns:minmax(0,1fr); gap:8px; }
+  .row:hover{ transform:none; }
+  .pager .p-next{ align-items:flex-start; text-align:left; }
+  .btn{ width:100%; justify-content:center; }
+  .brand-txt span{ display:none; }
+  .timeline{ padding-left:20px; }
+  .tl-item::before{ left:-27px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  html.theme-anim,html.theme-anim *{ transition:none; }
+}
+
+@media print{
+  #bg-canvas,.site-header .nav-toggle,.hd-actions{ display:none; }
+  body{ background:#fff; color:#000; }
+}
+</style>
+</head>
+<body data-page="home">
+
+<!--@icons-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="i-arrow"><path d="M5 12h14m-6-6 6 6-6 6"/></g>
+    <g id="i-arrow-left"><path d="M19 12H5m6 6-6-6 6-6"/></g>
+    <g id="i-chev"><path d="m9 6 6 6-6 6"/></g>
+    <g id="i-spark"><path d="M12 3v4m0 10v4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8M3 12h4m10 0h4M5.6 18.4l2.8-2.8m7.2-7.2 2.8-2.8"/></g>
+    <g id="i-users"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 4.2a3.5 3.5 0 0 1 0 6.6"/></g>
+    <g id="i-layers"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5M3 17l9 5 9-5"/></g>
+    <g id="i-compass"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></g>
+    <g id="i-heart"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></g>
+    <g id="i-quote"><path d="M9 7H6a2 2 0 0 0-2 2v3h5V7ZM19 7h-3a2 2 0 0 0-2 2v3h5V7ZM4 12v3a2 2 0 0 0 2 2h1m10 0h1a2 2 0 0 0 2-2v-3"/></g>
+    <g id="i-check"><path d="m4 12.5 5 5L20 6.5"/></g>
+    <g id="i-clock"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/></g>
+    <g id="i-target"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></g>
+    <g id="i-book"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H4V5.5ZM20 5.5A1.5 1.5 0 0 0 18.5 4H14a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H20V5.5Z"/></g>
+    <g id="i-globe"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></g>
+    <g id="i-shield"><path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 9.5-4.1-1.9-7-5.3-7-9.5V6l7-3Z"/><path d="m9 12 2.2 2.2L15.5 10"/></g>
+    <g id="i-trophy"><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 5.5H5.5V8a3 3 0 0 0 3 3M16 5.5h2.5V8a3 3 0 0 1-3 3M9.5 20h5M12 14v6"/></g>
+    <g id="i-pin"><path d="M12 21s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z"/><circle cx="12" cy="11" r="2.4"/></g>
+    <g id="i-flow"><path d="M5 6h6m0 0-2.5-2.5M11 6 8.5 8.5M5 18h6m0 0-2.5-2.5M11 18l-2.5 2.5M19 12h-6m0 0 2.5-2.5M13 12l2.5 2.5"/></g>
+    <g id="i-sun"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2m0 15v2M2.5 12h2m15 0h2M5.3 5.3l1.4 1.4m10.6 10.6 1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></g>
+    <g id="i-moon"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></g>
+    <g id="i-menu"><path d="M4 7h16M4 12h16M4 17h16"/></g>
+    <g id="i-close"><path d="M6 6l12 12M18 6 6 18"/></g>
+  </defs>
+</svg>
+<!--@/icons-->
+
+<a class="sr-only" href="#main">跳到主要内容</a>
+
+<!--@header-->
+<header class="site-header">
+  <div class="wrap hd-in">
+    <a class="brand" href="index.html" aria-label="掌玩人才发展项目 首页">
+      <span class="brand-mark" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-spark"/></svg></span>
+      <span class="brand-txt"><b>掌玩人才发展项目</b><span>TALENT DEVELOPMENT</span></span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="主导航">
+      <a class="nav-link" href="pages/about.html"       data-spy="about"       data-page="about">我们是谁</a>
+      <a class="nav-link" href="pages/programs.html"    data-spy="programs"    data-page="programs">三大计划</a>
+      <a class="nav-link" href="pages/development.html" data-spy="development" data-page="development">培养体系</a>
+      <a class="nav-link" href="pages/positions.html"   data-spy="positions"   data-page="positions">实践平台</a>
+      <a class="nav-link" href="pages/culture.html"     data-spy="culture"     data-page="culture">文化与成长</a>
+      <a class="nav-link" href="pages/stories.html"     data-spy="stories"     data-page="stories">成长见证</a>
+      <a class="nav-link" href="pages/join.html"        data-spy="join"        data-page="join">如何加入</a>
+    </nav>
+
+    <div class="hd-actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="切换深浅主题" aria-pressed="false">
+        <svg class="ico i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="ico i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<!--@/header-->
+
+<main id="main">
+
+  <!-- ===== HERO ｜ 出处：文档 开篇 Slogan / 定位 / 一、项目概述 ===== -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow reveal"><span class="mono">掌玩科技</span> · 人才发展项目</p>
+      <h1 class="hero-title reveal">和优秀的人，<br>把不可能变成可能</h1>
+      <p class="hero-lead reveal">面向应届生、在校实习生与在职员工的一体化人才发展体系</p>
+      <p class="hero-idea reveal"><span class="mono">核心理念</span>用行动决定价值、不给职业发展设限</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="pages/programs.html">了解三大计划
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="pages/join.html">如何加入
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+
+      <ul class="stats reveal-group">
+        <li class="stat reveal">
+          <span class="stat-num" data-count="2020">2020</span>
+          <span class="stat-label">项目启动</span>
+          <span class="stat-note">运营至今</span>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-num" data-count="500" data-suffix="+">500+</span>
+          <span class="stat-label">累计培养</span>
+          <span class="stat-note">单位：人</span>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-num" data-count="2300" data-suffix="+">2,300+</span>
+          <span class="stat-label">员工规模</span>
+          <span class="stat-note">掌玩科技</span>
+        </li>
+        <li class="stat reveal">
+          <span class="stat-num" data-count="10" data-suffix="+">10+</span>
+          <span class="stat-label">布局城市</span>
+          <span class="stat-note">国内 8 城 + 新加坡 / 美国</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 01 我们是谁 ｜ 出处：文档 二、项目背景：我们是谁 ===== -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">01</span> 项目背景</p>
+        <h2 class="sec-title">我们是谁</h2>
+        <p class="sec-lead">掌玩科技 2014 年成立于杭州，是领先的数字娱乐和科技创新平台，通过技术创新和优质内容，为用户带来极致的数字生活体验。</p>
+      </header>
+
+      <ul class="grid g-3 reveal-group">
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-users"/></svg></span>
+          <h3>员工规模</h3>
+          <p class="kicker">2,300+</p>
+          <p>覆盖技术研发、内容生产、流量运营等多条职能线。</p>
+        </li>
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg></span>
+          <h3>布局城市</h3>
+          <p class="kicker">10+</p>
+          <p>国内 8 城 + 新加坡 / 美国，具备海外业务学习场景。</p>
+        </li>
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-trophy"/></svg></span>
+          <h3>行业奖项</h3>
+          <p class="kicker">100+</p>
+          <p>数字娱乐与科技创新领域累计获得行业奖项 100+。</p>
+        </li>
+      </ul>
+
+      <ul class="chips reveal-group" aria-label="四大业务板块">
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-target"/></svg>游戏娱乐</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-layers"/></svg>短剧影视</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book"/></svg>数字阅读</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-spark"/></svg>人工智能</li>
+      </ul>
+
+      <p class="sec-foot reveal">
+        <a class="more" href="pages/about.html">关于掌玩：发展里程碑与项目亮点
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 02 三大计划 ｜ 出处：文档 三、培养对象与三大计划 ===== -->
+  <section class="section alt" id="programs">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">02</span> 培养对象与三大计划</p>
+        <h2 class="sec-title">三大计划，串起人才全周期</h2>
+        <p class="sec-lead"><b>青云</b>管入口（实习→转正），<b>未来领袖</b>管加速（应届→核心人才），<b>活水</b>管盘活（在职→更广空间），三计划串起人才全周期。</p>
+      </header>
+
+      <ul class="grid g-3 reveal-group">
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-target"/></svg></span>
+          <h3>未来领袖计划</h3>
+          <p class="kicker">应届生</p>
+          <p>毕业两年内、重点本科（985/211）及以上学历。</p>
+          <div class="spec">
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>定制化培养路径 + 高管导师指导</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>轮岗机会 / 高管导师 / 专项培训</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg><span class="k">周期</span><span>12 个月，三阶段</span></p>
+          </div>
+          <p class="sec-foot" style="margin-top:18px">
+            <a class="more" href="pages/programs.html#future-leader">查看详情
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </p>
+        </li>
+
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-spark"/></svg></span>
+          <h3>青云计划</h3>
+          <p class="kicker">在校实习生</p>
+          <p>大三及以上在校生，表现优秀者可转正。</p>
+          <div class="spec">
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>真实项目实践 + 专业技能培训</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>项目实践 / 技能培训 / 转正机会</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg><span class="k">周期</span><span>3-6 个月实习期</span></p>
+          </div>
+          <p class="sec-foot" style="margin-top:18px">
+            <a class="more" href="pages/programs.html#qingyun">查看详情
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </p>
+        </li>
+
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-flow"/></svg></span>
+          <h3>活水计划</h3>
+          <p class="kicker">在职员工</p>
+          <p>入职满 1 年、绩效达标，可申请内部流动。</p>
+          <div class="spec">
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>内部跨部门、跨业务线流动</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span>内部转岗 / 技能拓展 / 职业转型</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg><span class="k">周期</span><span>常态化申报，季度开放窗口</span></p>
+          </div>
+          <p class="sec-foot" style="margin-top:18px">
+            <a class="more" href="pages/programs.html#huoshui">查看详情
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </p>
+        </li>
+      </ul>
+
+      <p class="sec-foot reveal">
+        <a class="more" href="pages/programs.html">查看三大计划的完整培养节奏与成效数据
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 03 培养体系 ｜ 出处：文档 四、培养体系 ===== -->
+  <section class="section" id="development">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">03</span> 培养体系</p>
+        <h2 class="sec-title">双通道 + 双导师 + 四项机制</h2>
+        <p class="sec-lead">通过三大计划 + 双通道路径 + 四项培养机制，让不同背景、不同职业阶段的人才都能找到适合自己的成长方案。</p>
+      </header>
+
+      <ul class="grid g-2 reveal-group">
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layers"/></svg></span>
+          <h3>双通道发展路径</h3>
+          <p>专业技术通道与管理通道两条平行路径并行，员工按兴趣与专长自由选择，互不设限。</p>
+          <div class="spec">
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span class="k">起步</span><span>管理：团队负责人　/　专业：初级专员</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span class="k">领军</span><span>管理：业务总监　/　专业：高级专家</span></p>
+          </div>
+        </li>
+
+        <li class="card reveal">
+          <span class="card-ico" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-users"/></svg></span>
+          <h3>双导师制</h3>
+          <p>每位新员工配备「专业导师 + 成长导师」——专业导师负责业务技能与项目带教，成长导师负责文化融入与职业发展。</p>
+          <div class="spec">
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span class="k">配比</span><span>新员工 100% 配备导师</span></p>
+            <p class="spec-row"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg><span class="k">频次</span><span>每月至少一次一对一，入职首周每周一次</span></p>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="chips reveal-group" aria-label="全面培养体系四项机制">
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book"/></svg>系统化培训课程</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-users"/></svg>导师带教计划</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-spark"/></svg>创新项目孵化</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-globe"/></svg>国际业务学习</li>
+      </ul>
+
+      <p class="sec-foot reveal">
+        <a class="more" href="pages/development.html">查看完整培养体系
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 04 实践平台 ｜ 出处：文档 五、实践平台：在哪里成长 ===== -->
+  <section class="section alt" id="positions">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">04</span> 实践平台</p>
+        <h2 class="sec-title">六大热门职业方向，均为全职</h2>
+        <p class="sec-lead">学历口径：重点本科（985/211）及以上学历优先；更看重实际能力与潜力，特别优秀者可放宽学历要求。</p>
+      </header>
+
+      <ul class="rows reveal-group">
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-target"/></svg>游戏策划研发</p>
+          <p class="row-cell">研发中心</p>
+          <p class="row-cell">北京</p>
+          <p class="row-tags">React / Vue / TypeScript / Webpack</p>
+        </li>
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-compass"/></svg>产品运营</p>
+          <p class="row-cell">运营中心</p>
+          <p class="row-cell">杭州</p>
+          <p class="row-tags">产品规划 / 用户研究 / 数据分析 / 项目管理</p>
+        </li>
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-spark"/></svg>AI 训练</p>
+          <p class="row-cell">支持中心</p>
+          <p class="row-cell">杭州</p>
+          <p class="row-tags">AI 工具 / 业务分析 / 数据分析 / 跨部门联动</p>
+        </li>
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-layers"/></svg>广告设计</p>
+          <p class="row-cell">创意中心</p>
+          <p class="row-cell">杭州 / 广州</p>
+          <p class="row-tags">广告设计 / 脚本编辑 / 用户分析 / 流量分析</p>
+        </li>
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-flow"/></svg>数据分析</p>
+          <p class="row-cell">数据中心</p>
+          <p class="row-cell">杭州</p>
+          <p class="row-tags">业务对接 / 后台联动 / 数据分析 / 可视化</p>
+        </li>
+        <li class="row reveal">
+          <p class="row-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-trophy"/></svg>广告投放</p>
+          <p class="row-cell">推广中心</p>
+          <p class="row-cell">杭州 / 广州 / 重庆</p>
+          <p class="row-tags">推广优化 / 数据分析 / 用户分析 / 跨部门联动</p>
+        </li>
+      </ul>
+
+      <ul class="chips reveal-group" aria-label="十城工作布局">
+        <li class="chip mono reveal">杭州（总部）</li>
+        <li class="chip mono reveal">北京</li>
+        <li class="chip mono reveal">广州</li>
+        <li class="chip mono reveal">重庆</li>
+        <li class="chip mono reveal">济南</li>
+        <li class="chip mono reveal">长沙</li>
+        <li class="chip mono reveal">哈尔滨</li>
+        <li class="chip mono reveal">西安</li>
+        <li class="chip mono reveal">海外：新加坡</li>
+        <li class="chip mono reveal">海外：美国</li>
+      </ul>
+
+      <p class="sec-foot reveal">
+        <a class="more" href="pages/positions.html">查看六大方向与城市布局
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 05 文化与成长 ｜ 出处：文档 六、文化与保障 + 七、成长见证 ===== -->
+  <section class="section" id="culture">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">05</span> 文化与成长</p>
+        <h2 class="sec-title">有温度的成长环境</h2>
+        <p class="sec-lead">六类福利体系 + 开放扁平的文化，让成长既有支撑也有节奏。</p>
+      </header>
+
+      <ul class="chips reveal-group" aria-label="核心价值观">
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-spark"/></svg>创新为要</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-users"/></svg>协作共赢</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-trophy"/></svg>追求卓越</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>用户至上</li>
+      </ul>
+
+      <p class="sec-lead reveal" style="margin-top:26px">文化活动：团队建设（户外拓展/团队旅行）· 技术沙龙（分享会/研讨会）· 文体活动（篮球/羽毛球等兴趣社团）</p>
+
+      <ul class="chips reveal-group" aria-label="六类福利保障">
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-trophy"/></svg>薪酬激励</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-shield"/></svg>健康保障</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-pin"/></svg>工作环境</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book"/></svg>学习发展</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg>休假制度</li>
+        <li class="chip reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>关怀福利</li>
+      </ul>
+
+      <!-- 首页只放 2 条精华，第三条（老虎）在详情页 -->
+      <div class="quotes reveal-group">
+        <figure class="quote reveal">
+          <span class="quote-mark" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-quote"/></svg></span>
+          <blockquote>「从一名普通的投放助理成长为高级广告投放优化师，团队氛围开放包容，每个人都可以自由表达想法。」</blockquote>
+          <figcaption>
+            <b>鲸鱼 · 高级广告投放优化师</b>
+            <span class="mono">入职 3 年</span>
+            <p class="quote-note">—— 公司设有专门的学习创新时间，可自主探索能力提升方向。</p>
+          </figcaption>
+        </figure>
+        <figure class="quote reveal">
+          <span class="quote-mark" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-quote"/></svg></span>
+          <blockquote>「作为转行人，掌玩给了我实现职业转型的机会。导师制度让我快速适应新岗位。」</blockquote>
+          <figcaption>
+            <b>蜘蛛 · 产品用户运营</b>
+            <span class="mono">入职 2 年</span>
+            <p class="quote-note">—— 扁平化管理让员工能直接接触高层决策。</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="sec-foot reveal">
+        <a class="more" href="pages/culture.html">查看六类福利保障明细
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="more" href="pages/stories.html" style="margin-left:26px">三位学员的完整成长见证
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 06 如何加入 ｜ 出处：文档 八、如何加入 ===== -->
+  <section class="section alt" id="join">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="eyebrow"><span class="mono">06</span> 如何加入</p>
+        <h2 class="sec-title">申请流程，约 1 周</h2>
+        <p class="sec-lead">在线申请（扫码与 HR 沟通并上传简历）→ 简历筛选 → 面试评估（专业面 + 综合面 + HR 面）→ 录用通知与入职安排</p>
+      </header>
+
+      <ol class="steps reveal-group">
+        <li class="step reveal">
+          <p class="step-n">STEP 01</p>
+          <h4>在线申请</h4>
+          <p>扫码与 HR 沟通并上传简历。</p>
+        </li>
+        <li class="step reveal">
+          <p class="step-n">STEP 02</p>
+          <h4>简历筛选</h4>
+          <p>评估与岗位方向的匹配度。</p>
+        </li>
+        <li class="step reveal">
+          <p class="step-n">STEP 03</p>
+          <h4>面试评估</h4>
+          <p>专业面 + 综合面 + HR 面。</p>
+        </li>
+        <li class="step reveal">
+          <p class="step-n">STEP 04</p>
+          <h4>录用通知</h4>
+          <p>录用通知与入职安排。</p>
+        </li>
+      </ol>
+
+      <ul class="grid g-2 reveal-group" style="margin-top:26px">
+        <li class="card reveal">
+          <h3>学历要求</h3>
+          <p>一般要求重点本科及以上，更看重实际能力与潜力，特别优秀者可放宽。</p>
+        </li>
+        <li class="card reveal">
+          <h3>发展路径</h3>
+          <p>专业/管理双通道并行，可按兴趣切换方向。</p>
+        </li>
+      </ul>
+
+      <p class="sec-foot reveal">
+        <a class="btn btn-primary" href="pages/join.html">查看完整加入流程与常见问题
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!--@footer-->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div class="ft-col ft-brand">
+        <a class="brand" href="index.html" aria-label="掌玩人才发展项目 首页">
+          <span class="brand-mark" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-spark"/></svg></span>
+          <span class="brand-txt"><b>掌玩人才发展项目</b><span>TALENT DEVELOPMENT</span></span>
+        </a>
+        <p class="ft-slogan">和优秀的人，把不可能变成可能</p>
+        <p class="ft-desc">面向应届生、在校实习生与在职员工的一体化人才发展体系。</p>
+        <p class="ft-desc mono" style="color:var(--text-3)">2020 启动 · 累计培养 500+ 人</p>
+      </div>
+
+      <div class="ft-col">
+        <h4>项目导航</h4>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="pages/about.html">我们是谁</a></li>
+          <li><a href="pages/programs.html">三大计划</a></li>
+          <li><a href="pages/development.html">培养体系</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>发展与加入</h4>
+        <ul>
+          <li><a href="pages/positions.html">实践平台</a></li>
+          <li><a href="pages/culture.html">文化与保障</a></li>
+          <li><a href="pages/stories.html">成长见证</a></li>
+          <li><a href="pages/join.html">如何加入</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>四大业务板块</h4>
+        <ul>
+          <li><a href="pages/about.html#business">游戏娱乐</a></li>
+          <li><a href="pages/about.html#business">短剧影视</a></li>
+          <li><a href="pages/about.html#business">数字阅读</a></li>
+          <li><a href="pages/about.html#business">人工智能</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <p>信息来源：掌玩人才发展项目官网（人发网站）；培养机制设计参考京东 TGT/TET、美团北斗/萌芽、腾讯产培生、网易易计划、龙湖仕官生、玛氏管培生等业界公开实践。</p>
+      <p class="mono">掌玩科技 · 2014 年成立于杭州</p>
+    </div>
+  </div>
+</footer>
+<!--@/footer-->
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<script id="site-js">
+(function(){
+  'use strict';
+  var doc = document, root = doc.documentElement;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* ------------------------------------------------------------------
+     1. 主题切换：localStorage 记忆 / 未选择跟随系统 / 400ms 全站过渡
+     ------------------------------------------------------------------ */
+  var KEY = 'zw-theme';
+  var meta = doc.querySelector('meta[name="theme-color"]');
+  function themeColor(){
+    return root.getAttribute('data-theme') === 'dark' ? '#090B14' : '#F5F6FB';
+  }
+  function syncMeta(){ if(meta){ meta.setAttribute('content', themeColor()); } }
+  syncMeta();
+
+  var btn = doc.getElementById('theme-toggle');
+  if(btn){
+    btn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.classList.add('theme-anim');
+      root.setAttribute('data-theme', next);
+      btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+      try{ localStorage.setItem(KEY, next); }catch(e){}
+      syncMeta();
+      if(bg && bg.repaint) bg.repaint();
+      window.setTimeout(function(){ root.classList.remove('theme-anim'); }, 440);
+    });
+  }
+  if(window.matchMedia){
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onMq = function(e){
+      var stored = null;
+      try{ stored = localStorage.getItem(KEY); }catch(err){}
+      if(stored === 'light' || stored === 'dark') return;
+      root.classList.add('theme-anim');
+      root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      syncMeta();
+      if(bg && bg.repaint) bg.repaint();
+      window.setTimeout(function(){ root.classList.remove('theme-anim'); }, 440);
+    };
+    if(mq.addEventListener) mq.addEventListener('change', onMq);
+    else if(mq.addListener) mq.addListener(onMq);
+  }
+
+  /* ------------------------------------------------------------------
+     2. 移动端抽屉导航
+     ------------------------------------------------------------------ */
+  var nav = doc.getElementById('nav'), toggle = doc.getElementById('nav-toggle');
+  if(nav && toggle){
+    var setNav = function(open){
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+    };
+    toggle.addEventListener('click', function(){
+      setNav(!nav.classList.contains('is-open'));
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.closest('a')) setNav(false);
+    });
+    doc.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && nav.classList.contains('is-open')){ setNav(false); toggle.focus(); }
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     3. 滚动入场：IntersectionObserver + 同级错峰
+     ------------------------------------------------------------------ */
+  var groups = doc.querySelectorAll('.reveal-group');
+  Array.prototype.forEach.call(groups, function(g){
+    var kids = g.querySelectorAll(':scope > .reveal');
+    if(!kids.length) kids = g.querySelectorAll('.reveal');
+    Array.prototype.forEach.call(kids, function(k, i){ k.style.setProperty('--i', Math.min(i, 6)); });
+  });
+
+  var reveals = doc.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    Array.prototype.forEach.call(reveals, function(el){ el.classList.add('is-in'); });
+  }else{
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    Array.prototype.forEach.call(reveals, function(el){ io.observe(el); });
+  }
+
+  /* ------------------------------------------------------------------
+     4. 数字滚动 count-up
+     ------------------------------------------------------------------ */
+  function fmt(n){ return n.toLocaleString('en-US'); }
+  function runCount(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    if(isNaN(target)) return;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var prefix = el.getAttribute('data-prefix') || '';
+    if(reduce){ el.textContent = prefix + fmt(target) + suffix; return; }
+    var dur = 1100, t0 = 0;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + fmt(Math.round(target * eased)) + suffix;
+      if(p < 1) window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
+  }
+  var counters = doc.querySelectorAll('[data-count]');
+  if(!('IntersectionObserver' in window)){
+    Array.prototype.forEach.call(counters, runCount);
+  }else{
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ runCount(en.target); cio.unobserve(en.target); }
+      });
+    }, { threshold: 0.5 });
+    Array.prototype.forEach.call(counters, function(el){ cio.observe(el); });
+  }
+
+  /* ------------------------------------------------------------------
+     5. Scrollspy 导航高亮
+     ------------------------------------------------------------------ */
+  var sections = Array.prototype.slice.call(doc.querySelectorAll('main section[id]'));
+  var spies = Array.prototype.slice.call(doc.querySelectorAll('[data-spy]'));
+  var currentPage = doc.body.getAttribute('data-page');
+  if(currentPage && currentPage !== 'home'){
+    Array.prototype.forEach.call(doc.querySelectorAll('.nav-link[data-page="' + currentPage + '"]'), function(l){
+      l.classList.add('is-active');
+      l.setAttribute('aria-current', 'page');
+    });
+  }
+  if(sections.length && spies.length){
+    var currentId = null;
+    function apply(id){
+      if(id === currentId) return;
+      currentId = id;
+      spies.forEach(function(l){
+        var on = l.getAttribute('data-spy') === id;
+        if(l.classList.contains('nav-link') && doc.body.getAttribute('data-page') !== 'home') return;
+        l.classList.toggle('is-active', on);
+        if(on) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current');
+      });
+    }
+    var ticking = false;
+    function onScroll(){
+      if(ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function(){
+        var line = window.pageYOffset + window.innerHeight * 0.34, cur = null;
+        sections.forEach(function(s){
+          var top = s.getBoundingClientRect().top + window.pageYOffset;
+          if(top <= line) cur = s.id;
+        });
+        if(cur) apply(cur);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  }
+
+  /* ------------------------------------------------------------------
+     6. 背景 Canvas：轻量交互网格，随主题换色，reduced-motion 静止
+     ------------------------------------------------------------------ */
+  var bg = (function(){
+    var c = doc.getElementById('bg-canvas');
+    if(!c || !c.getContext) return null;
+    var ctx = c.getContext('2d');
+    var w = 0, h = 0, dpr = 1, nodes = [], raf = null;
+    var pointer = { x: -9999, y: -9999, on: false };
+    var LINK = 132, TOUCH = 170;
+
+    function colors(){
+      var cs = window.getComputedStyle(root);
+      return {
+        dot: cs.getPropertyValue('--grid').trim() || 'rgba(0,0,0,.08)',
+        line: cs.getPropertyValue('--brand-line').trim() || 'rgba(0,0,0,.16)'
+      };
+    }
+    function seed(){
+      var count = Math.max(28, Math.min(84, Math.round(w * h / 20000)));
+      nodes = [];
+      for(var i = 0; i < count; i++){
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: 1.1 + Math.random() * 1.3
+        });
+      }
+    }
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+      c.style.width = w + 'px'; c.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    }
+    function frame(){
+      var col = colors();
+      ctx.clearRect(0, 0, w, h);
+      var i, j, a, b, dx, dy, d;
+      for(i = 0; i < nodes.length; i++){
+        a = nodes[i];
+        a.x += a.vx; a.y += a.vy;
+        if(a.x < 0 || a.x > w) a.vx *= -1;
+        if(a.y < 0 || a.y > h) a.vy *= -1;
+      }
+      ctx.lineWidth = 1;
+      for(i = 0; i < nodes.length; i++){
+        a = nodes[i];
+        for(j = i + 1; j < nodes.length; j++){
+          b = nodes[j];
+          dx = a.x - b.x; dy = a.y - b.y; d = Math.sqrt(dx * dx + dy * dy);
+          if(d < LINK){
+            ctx.globalAlpha = (1 - d / LINK) * 0.5;
+            ctx.strokeStyle = col.line;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        if(pointer.on){
+          dx = a.x - pointer.x; dy = a.y - pointer.y; d = Math.sqrt(dx * dx + dy * dy);
+          if(d < TOUCH){
+            ctx.globalAlpha = (1 - d / TOUCH) * 0.65;
+            ctx.strokeStyle = col.line;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = col.dot;
+      for(i = 0; i < nodes.length; i++){
+        a = nodes[i];
+        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+      }
+      raf = window.requestAnimationFrame(frame);
+    }
+    function paint(){ ctx.clearRect(0, 0, w, h); frameOnce(); }
+    function frameOnce(){
+      var col = colors(), i, j, a, b, dx, dy, d;
+      ctx.lineWidth = 1;
+      for(i = 0; i < nodes.length; i++){
+        a = nodes[i];
+        for(j = i + 1; j < nodes.length; j++){
+          b = nodes[j];
+          dx = a.x - b.x; dy = a.y - b.y; d = Math.sqrt(dx * dx + dy * dy);
+          if(d < LINK){
+            ctx.globalAlpha = (1 - d / LINK) * 0.5;
+            ctx.strokeStyle = col.line;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = col.dot;
+      for(i = 0; i < nodes.length; i++){
+        a = nodes[i];
+        ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    function start(){
+      stop();
+      if(reduce){ paint(); return; }
+      raf = window.requestAnimationFrame(frame);
+    }
+    function stop(){ if(raf){ window.cancelAnimationFrame(raf); raf = null; } }
+
+    resize();
+    start();
+
+    var rt = null;
+    window.addEventListener('resize', function(){
+      window.clearTimeout(rt);
+      rt = window.setTimeout(function(){ resize(); start(); }, 180);
+    });
+    if(!reduce){
+      window.addEventListener('mousemove', function(e){
+        pointer.x = e.clientX; pointer.y = e.clientY; pointer.on = true;
+      }, { passive: true });
+      window.addEventListener('mouseleave', function(){ pointer.on = false; });
+      doc.addEventListener('visibilitychange', function(){
+        if(doc.hidden) stop(); else start();
+      });
+    }
+    return { repaint: function(){ if(reduce) paint(); } };
+  })();
+
+})();
+</script>
+</body>
+</html>
